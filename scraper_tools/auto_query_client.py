@@ -1,4 +1,5 @@
 import urllib2, os, json
+from time import sleep
 
 def send_query(host, path, port, data, method='POST'):
 
@@ -12,13 +13,9 @@ def send_query(host, path, port, data, method='POST'):
 
   print 'generate %s request to %s' %(method, url)
   print resp
-
-
-def main():
- pass 
-
-if __name__=='__main__':
-  main()
-
+  res = json.loads(resp.read().strip())
+  print 'RESPOSNE: %s' %(res)
+  print '*'*30
+  return res
 
 
