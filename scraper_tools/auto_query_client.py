@@ -11,7 +11,7 @@ def send_query(host, path, port, data, method='POST'):
   resp = urllib2.urlopen(r)
 
 
-  print 'generate %s request to %s' %(method, url)
+  print 'generate %s request to %s with %s' %(method, url, data)
   print resp
   res = json.loads(resp.read().strip())
   print 'RESPOSNE: %s' %(res)
