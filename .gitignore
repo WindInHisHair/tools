@@ -1,0 +1,13 @@
+*.csv
+*.pyc
+*.log
+*.xml
+*.out
+client.py
+unicome_client.py
+*/local_config.py
+.idea/
+.DS_Store
+*.rdb
+*.png
+*.txt
