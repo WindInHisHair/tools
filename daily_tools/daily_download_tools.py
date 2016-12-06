@@ -21,8 +21,7 @@ def main():
 		PATH= '%s@%s:/home/%s/' %(user, server, user)
 
 
-	if directory:
-		
+	if directory:		
 		if method == 'download':
 			path = PATH + directory
 			command = 'scp -r -P %s %s ./' %(PORT, path)
