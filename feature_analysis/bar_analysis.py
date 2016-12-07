@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from numpy import array 
 
-from local_config import columns, others, file_name, default_cluster_value_top, default_cluster_value_bottom, approve_code, reject_code
+from local_config import columns, others, file_name, default_cluster_value_top, default_cluster_value_bottom, approve_code, reject_code, recent_six_month
 
 def _cluster_index(df):
 
@@ -56,7 +56,7 @@ def main():
 	# for each_attribute in columns:
 	# 	analyze_data(data, each_attribute)
 
-	for each in others:
+	for each in recent_six_month:
 		analyze_data(data, each, True)
 
 
