@@ -1,6 +1,9 @@
 import pandas as pd
+import xgboost as xgb
 import matplotlib.pyplot as plt
+
 from numpy import array 
+from sklearn import preprocessing, cross_validation, metrics
 
 from local_config import columns, others, file_name, default_cluster_value_top, default_cluster_value_bottom, approve_code, reject_code, recent_six_month
 
@@ -35,7 +38,7 @@ def analyze_data(data, column_name, cluster_data=False):
 
 
 	approve = approve[approve.index >= 0]
-	reject = reject[reject.index >= 0]
+	reject = reject.fillna(0)
 	dt = pd.DataFrame({'Approve':approve, 'Reject':reject})
 	dt.plot(kind='bar', stacked=True)
 

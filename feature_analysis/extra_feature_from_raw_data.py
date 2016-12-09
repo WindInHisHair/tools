@@ -1,9 +1,10 @@
+import csv
 import pandas as pd
 import xgboost as xgb
 from sklearn import cross_validation, metrics, linear_model, preprocessing
 from sklearn.tree import DecisionTreeClassifier
 
-from local_config import columns, others, file_name, approve_code, reject_code, status_name, recent_six_month
+from local_config import *
 
 	
 def load_data(f=file_name , cols=columns, st=status_name, clustered_data=True):
@@ -63,7 +64,8 @@ def xgb_cv(data, label):
 	num_round = 2
 	bst = xgb.train(param, dtrain, num_round)
 	predict = bst.predict(dtest)
-
+	bst.save_model('all_ykd_feature.model')
+	bst.dump_model('all_ykd_feature.txt')
 	return metrics.roc_auc_score(test_y, predict)
 
 
@@ -72,7 +74,10 @@ def main():
 	tr = DecisionTreeClassifier()
 	lr = linear_model.LogisticRegression()
 
-	data, label = load_data(clustered_data=False)
+	with open('selected_column_name.csv', 'r') as f:
+		r = csv.reader(f)
+		feature_col = [each for each in r][0]
+	data, label = load_data(cols=feature_col, clustered_data=False)
 
 	print "the data size is %s" %(len(data))
 	# data, label = load_data()
@@ -88,10 +93,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
-
-
-
-
-
 
