@@ -8,6 +8,7 @@
 *.png
 *.swp
 *.tar.gz
+*.model
 
 .idea/*
 .DS_Store
