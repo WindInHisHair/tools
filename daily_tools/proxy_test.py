@@ -11,9 +11,8 @@ def test_proxy_work(proxy, url=None):
 		url = 'http://www.zhihu.com'
 
 	try:
-		a = urllib2.urlopen(url)
+		a = urllib2.urlopen(url, timeout=10)
 		content = a.read()
-		print content
 	except:
 		return "NOT WORK"
 
@@ -28,8 +27,8 @@ def main():
 
 	file = sys.argv[1]
 	with open(file, 'r') as f:
-		for each in f.readline():
-			print  '%s: %s' %(each, test_proxy_work(each))
+		for each in f.readlines():
+			print  ' %s:%s' %(test_proxy_work(each), each)
 
 
 
