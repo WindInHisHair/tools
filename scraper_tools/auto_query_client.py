@@ -23,19 +23,25 @@ def send_query(host, path, port, data, method='POST'):
 
 
 def run_test_according_to_config_file(file):
-  config = yaml.load(file(file))
+  cf = yaml.load(file(file))
+  config = cf['test_case']
   host = config['host']
   path = config['path']
   port = config['port']
   data = config['data']
-  url = config['url']
+  url = urlparse.urljoin(host, port)
+
   paths = config['paths']
 
-  for each in paths:
+  for index, each in enumerate(paths):
+    if index == config['wait_on_step']:
+      sleep(config['wait_time'])
+
+    print '#############'
     print 'Run the query to the %s' %(each)
     d = send_query(host, each, port, data)
+    print 'Got response %s' %(d)
     data.update(d)
-
 
 
 def main():
