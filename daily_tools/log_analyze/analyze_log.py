@@ -6,6 +6,12 @@ import re
 import sys
 import json
 
+
+def get_err_mobile_numbers():
+    # Todo: query database or read from file to get all the mobile numbers 
+    pass
+
+    
 def analyze_log(target_mobile, log_file=None):
     # Todo: try to refactor the log collect from database or rewrite the
     # implementation with GoLang 
