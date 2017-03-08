@@ -32,9 +32,16 @@ class LogParser():
         return target
 
     def get_json_object(self, raw_str, head, tail):
-        json_str = self.get_string_from_records(raw_str, head, tail, head_included=True, tail_included=True)
-        # import ipdb; ipdb.set_trace()
-        return json.loads(json_str), raw_str.index(tail)
+        start_index = 0
+        try:
+            while True:
+                if start_index >= len(raw_str):
+                    break
+                json_str = self.get_string_from_records(raw_str[start_index:], head, tail, head_included=True, tail_included=True)
+                start_index = start_index + raw_str[start_index:].index(tail)+1
+                yield json.loads(json_str)
+        except:
+            return
 
     def get_time_stamp(self, time_str, time_pattern):
 
