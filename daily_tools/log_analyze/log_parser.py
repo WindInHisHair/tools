@@ -24,27 +24,19 @@ class LogParser():
 
     def get_string_from_records(self, str, head_str, tail_str, head_included=True, tail_included=True):
 
-        head = str.index(head_str)
-        tail = str.index(tail_str)
+        head, tail = str.index(head_str), str.index(tail_str)
         head_index = head if head_included else head + len(head_str)
         tail_index = tail + len(tail_str) if tail_included else tail 
         target = str[head_index:tail_index]
         return target
 
-    def get_json_object(self, raw_str, head, tail):
-        start_index = 0
-        try:
-            while True:
-                if start_index >= len(raw_str):
-                    break
-                json_str = self.get_string_from_records(raw_str[start_index:], head, tail, head_included=True, tail_included=True)
-                start_index = start_index + raw_str[start_index:].index(tail)+1
-                yield json.loads(json_str)
-        except:
-            return
+    def slice_json_object_from_string(self, str, head, tail):
+
+        raw_obj = str[head:tail+1]
+
+        return json.loads(raw_obj)
 
     def get_time_stamp(self, time_str, time_pattern):
-
         time_stampe = datetime.strptime(time_str, time_pattern)
         return time_stampe
 
@@ -61,3 +53,24 @@ class LogParser():
             return url_obj.port
         else:
             return url_obj
+
+    def get_json_object(self, raw_str, head, tail):
+        # head, and tail should be just '{','}', '[', ']'
+        stack = []
+
+        for k, c in enumerate(raw_str):
+            if c == head:
+                stack.append(k)
+            elif c == tail:
+                if len(stack) == 1:
+                    yield self.slice_json_object_from_string(raw_str, stack[0], k)
+                    stack.pop()
+                else:
+                    stack.pop()
+
+        yield None
+
+
+class LogStats():
+    def __init__(self, stats_dict):
+        pass
