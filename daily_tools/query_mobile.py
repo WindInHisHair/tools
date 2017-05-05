@@ -25,7 +25,8 @@ def query_mobile_with_ip138(mobile):
 
     soup = BeautifulSoup(content, 'html.parser')
     data = soup.find_all('table')[1].find_all('tr')
-    province_name = data[2].find_all('td')[1].text[:-1]
+    location_info = data[2].find_all('td')[1].text.strip()
+    province_name, city_name = location_info.split()
 
     isp_str = data[3].find_all('td')[1].text
     isp_name = [u'移动', u'联通', u'电信']
@@ -36,4 +37,5 @@ def query_mobile_with_ip138(mobile):
         raise Exception
 
     isp = isp_possible[0]
-    return True, isp, province_name
+
+    return True, isp, province_name, city_name
