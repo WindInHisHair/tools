@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.orm import sessionmaker
 
 
-def config_mysql(host, port, db, user, table_name, passwd=None):
+def get_wrapper(host, port, db, user, table_name, passwd=None):
 
 
     if passwd is not None:
