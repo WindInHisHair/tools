@@ -8,7 +8,7 @@ def get_wrapper(host, port, db, user, table_name, passwd=None):
 
 
     if passwd is not None:
-        config_str = 'mysql+mysqldb://{user}:{passwd}@{host}:{port}/{db}'.format(
+        config_str = 'mysql+mysqldb://{user}:{pwd}@{host}:{port}/{db}'.format(
             **{'user': user, 'pwd': passwd, 'host': host, 'port': port, 'db': db}
         )
     else:
